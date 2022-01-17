@@ -10,9 +10,10 @@
   "dependencies": {
   
   },
-  "devDependencies": {},
+
   "scripts": {
-    "test": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node index.js"
   },
   "author": "Krzysztof Mikołajczyk",
   "license": "ISC"
