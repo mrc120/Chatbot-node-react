@@ -1,0 +1,19 @@
+{
+  "name": "chatbot.app",
+  "version": "1.0.0",
+  "description": "react + node.js",
+  "main": "index.js",
+  "engines": {
+    "node": "16.13.1",
+    "npm": "8.1.2"
+  },
+  "dependencies": {
+  
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Krzysztof Mikołajczyk",
+  "license": "ISC"
+}
