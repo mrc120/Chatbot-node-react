@@ -1,15 +1,15 @@
 const dialogflow = require('dialogflow');
-const config = require('../config/keys')
+const config = require('../config/keys');
 const sessionClient = new dialogflow.SessionsClient();
-
-const sessionpath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID)
-
+const sessionPath = sessionClient.sessionPath(config.googleProjectID, config.dialogFlowSessionID)
 
 module.exports = app => {
 
+    app.get('/', (req, res) => {
+        res.send("elo");
+    });
 
-
-    app.post('/api/df_text_query', (req, res) => {
+    app.post('/api/df_text_query', async (req, res) => {
         const request = {
             session: sessionPath,
             queryInput: {
@@ -19,26 +19,24 @@ module.exports = app => {
                 },
             },
         };
-        sessionClient
-            .detectintent(request)
-            .then(responses => {
-                console.log('Detected intent');
-                const result = responses[0].queryResult;
-                console.log(` Query: ${result.queryText}`);
-                console.log(` Response: ${result.fullfilmentText}`);
-                if (result.intent) {
-                    console.log(` Intent: ${result.intent.displayName}`);
-                } else {
-                    console.log("No  intent matches.");
-                }
-            }).catch(err => {
-                console.error('ERROR:', err)
-            });
+        let responses = await sessionClient
+            .detectIntent(request)
 
-            res.send({'do': 'text_query'})
+
+        res.send(responses[0].queryResult);
     });
-    
+
     app.post('/api/df_event_query', (req, res) => {
         res.send({ 'do': 'event query' });
     });
+}
+module.exports = app => {
+    app.get('/api/df_text_query', (req, res) => {
+        res.send({ 'do': 'text query' })
+    })
+
+    app.post('/api/df_event_query', (req, res) => {
+        res.send({ 'do': 'event query' })
+    })
+
 }
